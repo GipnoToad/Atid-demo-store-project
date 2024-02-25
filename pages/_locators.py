@@ -6,3 +6,5 @@ class HomePageLocators:
 
 class StorePageLocators:
     CATEGORIES_TITLE = (By.CSS_SELECTOR, "#woocommerce_product_categories-2 h2")
+    PRODUCTS_TABLE = (By.CSS_SELECTOR, ".astra-shop-thumbnail-wrap")
+    
