@@ -8,3 +8,9 @@ def test_user_can_access_store_page(browser):
     store_page = StorePage(browser, url)
     store_page.open()
     store_page.is_store_page()
+
+def test_user_can_choose_product(browser):
+    store_page = StorePage(browser, url)
+    store_page.open()
+    store_page.choose_product()
+
