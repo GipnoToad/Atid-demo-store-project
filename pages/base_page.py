@@ -2,6 +2,7 @@ from selenium.webdriver import Chrome
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common import exceptions
+from random import choice
 
 class BasePage:
     def __init__(self, browser: Chrome, url: str):
@@ -17,15 +18,18 @@ class BasePage:
             elem.click()
         except exceptions.TimeoutException:
             raise AssertionError(f'Element: {locator} is not clickable.')
-        except exceptions.ElementClickInterceptedException as click:
-            raise AssertionError(f"Element: {locator} was not cliked due {click}")
+        except exceptions.ElementClickInterceptedException as ex:
+            raise AssertionError(f"Element: {locator} was not cliked due {ex}")
 
-    # def click_element(self, locator: tuple):
-    #     try:
-    #         elem = self.element_is_clickable(locator)
-    #         elem.click()
-    #     except:
-    #         raise AssertionError(f'Failed to click element: {locator}.')
+    def elements_are_clickable(self, locator: tuple, wait=5):
+            try:
+                WebDriverWait(self.browser, wait).until(EC.visibility_of_element_located(locator))
+                elems = self.browser.find_elements(*locator)
+                choice(elems).click()
+            except exceptions.TimeoutException:
+                raise AssertionError(f'Element: {locator} is not clickable.')
+            except exceptions.ElementClickInterceptedException as ex:
+                raise AssertionError(f"Element: {locator} was not cliked due {ex}")
 
     def element_is_visible(self, locator: tuple, wait=5):
         try:
