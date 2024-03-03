@@ -9,5 +9,6 @@ class HomePage(BasePage):
     def click_store_page_button(self):
         self.is_home_page()
         self.element_is_clickable(HomePageLocators.STORE_PAGE_BUTTON)
+        self.click_element(HomePageLocators.STORE_PAGE_BUTTON)
 
 
